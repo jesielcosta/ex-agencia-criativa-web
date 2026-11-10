@@ -1,0 +1,567 @@
+/* ==========================================================================
+   AGÊNCIA CRIATIVA WEB — estilos.css (refatorado com BEM)
+
+   Convenção: .bloco__elemento--modificador
+   Sumário:
+     1. Variáveis
+     2. Base (reset e elementos globais)
+     3. Genéricos reutilizáveis (container, secao, botao)
+     4. Componentes (logo, menu, cartao, depoimento, formulario, valores)
+     5. Seções da página (cabecalho, banner, sobre, servicos,
+        depoimentos, contato, rodape)
+     6. Responsividade (media queries, do maior para o menor breakpoint)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIÁVEIS
+   ========================================================================== */
+:root {
+  --cor-primaria: #6c3cf0;
+  --cor-primaria-escura: #4a22b8;
+  --cor-destaque: #ff6b6b;
+  --cor-destaque-escura: #e65555;
+  --cor-fundo: #ffffff;
+  --cor-fundo-alt: #f4f2fb;
+  --cor-texto: #24223a;
+  --cor-texto-suave: #5b5873;
+  --cor-borda: #d3d0e3;
+  --raio: 0.75rem;
+  --sombra: 0 0.25rem 1.25rem rgba(36, 34, 58, 0.1);
+  --largura-maxima: 75rem;
+}
+
+
+/* ==========================================================================
+   2. BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+
+/* ==========================================================================
+   3. GENÉRICOS REUTILIZÁVEIS
+   ========================================================================== */
+
+/* --- container --- */
+.container {
+  width: 90%;
+  max-width: var(--largura-maxima);
+  margin-inline: auto;
+}
+
+/* --- secao: espaçamento e título padrão de todas as seções --- */
+.secao {
+  padding-block: 5rem;
+}
+
+.secao--alt {
+  background: var(--cor-fundo-alt);
+}
+
+.secao__titulo {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.secao__titulo--centro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.secao__texto {
+  color: var(--cor-texto-suave);
+  margin-bottom: 1.5rem;
+}
+
+/* --- botao --- */
+.botao {
+  display: inline-block;
+  background: var(--cor-primaria);
+  color: #fff;
+  padding: 0.9em 2em;
+  border: none;
+  border-radius: 50em;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.botao:hover,
+.botao:focus-visible {
+  background: var(--cor-primaria-escura);
+  transform: translateY(-0.125rem);
+}
+
+.botao--destaque {
+  background: var(--cor-destaque);
+}
+
+.botao--destaque:hover,
+.botao--destaque:focus-visible {
+  background: var(--cor-destaque-escura);
+}
+
+
+/* ==========================================================================
+   4. COMPONENTES
+   ========================================================================== */
+
+/* --- superfície compartilhada (cartões e formulário) --- */
+.cartao,
+.formulario {
+  background: #fff;
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+/* --- logo --- */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.logo__icone {
+  background: var(--cor-primaria);
+  color: #fff;
+  padding: 0.15em 0.5em;
+  border-radius: 0.4em;
+  font-size: 0.9em;
+}
+
+.logo__destaque {
+  color: var(--cor-primaria);
+}
+
+/* --- menu (navegação principal + hambúrguer sem JavaScript) --- */
+.menu__toggle,
+.menu__hamburguer {
+  display: none;
+}
+
+.menu__lista {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.menu__link {
+  display: inline-block;
+  font-weight: 500;
+  padding-block: 0.5em;
+  border-bottom: 0.125rem solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.menu__link:hover {
+  color: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.menu__link--cta {
+  background: var(--cor-primaria);
+  color: #fff;
+  padding: 0.5em 1.4em;
+  border-radius: 50em;
+  border-bottom: none;
+}
+
+.menu__link--cta:hover {
+  background: var(--cor-primaria-escura);
+  color: #fff;
+}
+
+.menu__hamburguer {
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.menu__barra {
+  width: 1.6rem;
+  height: 0.2rem;
+  background: var(--cor-texto);
+  border-radius: 0.2rem;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* --- cartao (serviço) --- */
+.cartao {
+  overflow: hidden;
+  padding-bottom: 1.5rem;
+  transition: transform 0.25s;
+}
+
+.cartao:hover {
+  transform: translateY(-0.4rem);
+}
+
+.cartao__imagem {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  margin-bottom: 1.2rem;
+}
+
+.cartao__titulo {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  padding-inline: 1.5rem;
+  color: var(--cor-primaria-escura);
+}
+
+.cartao__texto {
+  padding-inline: 1.5rem;
+  color: var(--cor-texto-suave);
+}
+
+/* --- depoimento --- */
+.depoimento {
+  flex: 1 1 18rem;
+  background: var(--cor-fundo-alt);
+  border-left: 0.3rem solid var(--cor-primaria);
+  border-radius: var(--raio);
+  padding: 2rem;
+}
+
+.depoimento__citacao {
+  font-style: italic;
+  margin-bottom: 1.2rem;
+}
+
+.depoimento__autor {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.depoimento__nome {
+  color: var(--cor-texto);
+}
+
+/* --- valores (lista de valores da agência) --- */
+.valores__item {
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: 0.6rem;
+}
+
+.valores__item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--cor-primaria);
+  font-weight: 700;
+}
+
+/* --- formulario --- */
+.formulario {
+  padding: 2rem;
+}
+
+.formulario__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.formulario__rotulo {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.formulario__entrada {
+  width: 100%;
+  font: inherit;
+  padding: 0.8em 1em;
+  border: 0.0625rem solid var(--cor-borda);
+  border-radius: 0.5rem;
+}
+
+.formulario__entrada--texto-longo {
+  resize: vertical;
+}
+
+.formulario__entrada:focus {
+  outline: 0.125rem solid var(--cor-primaria);
+  border-color: transparent;
+}
+
+
+/* ==========================================================================
+   5. SEÇÕES DA PÁGINA
+   ========================================================================== */
+
+/* --- cabecalho (Flexbox) --- */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(0.5rem);
+  box-shadow: 0 0.0625rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.cabecalho__conteudo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: var(--largura-maxima);
+  min-height: 4.5rem;
+  margin-inline: auto;
+}
+
+/* --- banner (home) --- */
+.banner {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(74, 34, 184, 0.92), rgba(108, 60, 240, 0.8)),
+    url("https://picsum.photos/id/1048/1600/900") center / cover no-repeat;
+}
+
+.banner__conteudo {
+  width: 90%;
+  max-width: 48rem;
+  padding-block: 4rem;
+}
+
+.banner__etiqueta {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 0.3em 1em;
+  border-radius: 50em;
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.banner__titulo {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 1.2rem;
+}
+
+.banner__texto {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+/* --- sobre (Grid 2 colunas) --- */
+.sobre__grade {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.sobre__foto {
+  width: 100%;
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+/* --- servicos (CSS Grid) --- */
+.servicos__grade {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* --- depoimentos (Flexbox) --- */
+.depoimentos__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+/* --- contato (Grid 2 colunas) --- */
+.contato__grade {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+}
+
+.contato__endereco {
+  font-style: normal;
+}
+
+.contato__item {
+  margin-bottom: 1rem;
+}
+
+.contato__link {
+  color: var(--cor-primaria);
+}
+
+.contato__link:hover {
+  text-decoration: underline;
+}
+
+/* --- rodape --- */
+.rodape {
+  background: var(--cor-texto);
+  color: #cfcce2;
+  text-align: center;
+  padding: 2rem 5%;
+  font-size: 0.9rem;
+}
+
+
+/* ==========================================================================
+   6. RESPONSIVIDADE
+   ========================================================================== */
+
+/* Telas grandes (a partir de 90rem = 1440px) */
+@media (min-width: 90rem) {
+  html {
+    font-size: 112.5%;
+  }
+}
+
+/* Tablet (até 64rem = 1024px) */
+@media (max-width: 64rem) {
+  .secao {
+    padding-block: 4rem;
+  }
+
+  .servicos__grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Celular / tablet pequeno (até 48rem = 768px) */
+@media (max-width: 48rem) {
+  /* menu: vira hambúrguer */
+  .menu__hamburguer {
+    display: flex;
+  }
+
+  .menu__lista {
+    position: absolute;
+    top: 100%;
+    left: -5.5%;
+    right: -5.5%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 5%;
+    background: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .menu__toggle:checked ~ .menu__lista {
+    max-height: 30rem;
+    padding-block: 0.5rem;
+  }
+
+  .menu__link {
+    display: block;
+    padding-block: 0.9em;
+    border-bottom: 0.0625rem solid #eee;
+  }
+
+  .menu__link--cta {
+    margin-block: 0.8rem;
+    text-align: center;
+    border-radius: 0.5rem;
+  }
+
+  .menu__toggle:checked + .menu__hamburguer .menu__barra--topo {
+    transform: translateY(0.5rem) rotate(45deg);
+  }
+
+  .menu__toggle:checked + .menu__hamburguer .menu__barra--meio {
+    opacity: 0;
+  }
+
+  .menu__toggle:checked + .menu__hamburguer .menu__barra--base {
+    transform: translateY(-0.5rem) rotate(-45deg);
+  }
+
+  /* seções em coluna única */
+  .sobre__grade,
+  .contato__grade {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .secao__titulo {
+    font-size: 1.8rem;
+  }
+}
+
+/* Celular pequeno (até 40rem = 640px) */
+@media (max-width: 40rem) {
+  .banner {
+    min-height: 80vh;
+  }
+
+  .servicos__grade {
+    grid-template-columns: 1fr;
+  }
+
+  .formulario {
+    padding: 1.5rem;
+  }
+}
+
+/* Preferência por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
